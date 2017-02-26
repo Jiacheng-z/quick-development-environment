@@ -9,18 +9,8 @@ RUN buildDeps='libxml2-dev  wget git zip unzip ' \
     && pecl install redis \
     && pecl install solr-2.4.0 \
     && pecl install msgpack \
+    && pecl install yaf \
     && docker-php-ext-enable redis solr msgpack \
-    && wget http://pecl.php.net/get/yaf-3.0.4.tgz \
-    && tar zxvf yaf-3.0.4.tgz \
-    && rm yaf-3.0.4.tgz \
-    && ( \
-	cd yaf-3.0.4 \
-	&& phpize \
-	&& ./configure \
-	&& make -j$(nproc) \
-	&& make install \
-    ) \
-    && rm -r yaf-3.0.4 \
     && wget http://pecl.php.net/get/yac-2.0.1.tgz \
     && tar zxvf yac-2.0.1.tgz \
     && rm yac-2.0.1.tgz \
