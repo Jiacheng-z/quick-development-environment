@@ -3,7 +3,7 @@ FROM php:7.1-fpm
 RUN buildDeps='libxml2-dev  wget git zip unzip ' \
 	&& apt-get update && apt-get install -y $buildDeps \
 	&& apt-get install -y  graphviz libcurl4-gnutls-dev curl libmcrypt-dev libmemcached-dev libfreetype6-dev libjpeg62-turbo-dev libpng12-dev zlib1g-dev  \
-	&& docker-php-ext-install -j$(nproc) iconv mcrypt opcache xml pdo pdo_mysql sockets \
+	&& docker-php-ext-install -j$(nproc) iconv mcrypt opcache xml pdo pdo_mysql mysqli sockets \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
 	&& pecl install redis-3.0.0 \
