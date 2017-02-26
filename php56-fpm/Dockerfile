@@ -3,7 +3,7 @@ FROM php:5.6-fpm
 RUN buildDeps='libfreetype6-dev libjpeg62-turbo-dev libpng12-dev zlib1g-dev libxml2-dev  wget ' \
     && apt-get update && apt-get install -y $buildDeps \
     && apt-get install -y  graphviz libcurl4-gnutls-dev curl libmcrypt-dev libmemcached-dev \
-    && docker-php-ext-install -j$(nproc) iconv mcrypt opcache xml pdo pdo_mysql sockets \
+    && docker-php-ext-install -j$(nproc) iconv mcrypt opcache xml pdo pdo_mysql mysqli sockets \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install -j$(nproc) gd \
     && pecl install xdebug-2.5.0 \
