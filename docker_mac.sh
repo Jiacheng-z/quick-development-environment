@@ -8,22 +8,22 @@ docker_hub_php71_image="jiachengajtlkd/php:7.1-fpm"
 docker_hub_redis_image="redis:3.0"
 docker_hub_memcache_image="memcached:1.4"
 
-php_app="/Users/zhangjiacheng/WorkFile/Web/Project/" #app文件路径
-php_ini="/Users/zhangjiacheng/WorkFile/Web/Config/php/php.ini" #php.ini路径
+php_app="/Users/zhangjiacheng/Work/Website/" #app文件路径
+php_ini="/Users/zhangjiacheng/Work/env/php/php.ini" #php.ini路径
 
-nginx_conf="/Users/zhangjiacheng/WorkFile/Web/Config/nginx/nginx.conf" #nginx.conf路径
-nginx_confd="/Users/zhangjiacheng/WorkFile/Web/Config/nginx/conf.d" #nginx server 配置路径 可以为空
+nginx_conf="/Users/zhangjiacheng/Work/env/nginx/nginx.conf" #nginx.conf路径
+nginx_confd="/Users/zhangjiacheng/Work/env/nginx/conf.d" #nginx server 配置路径 可以为空
 
 myip="$(ifconfig | grep 'inet.*netmask.*broadcast')"
 own_ip="$(echo $myip | awk '{print $2}')"
-dns="114.114.114.144"
+#dns="114.114.114.144"
+dns=""
 
 docker_machine_name="phpbox"
 
 #向docker启动时添加的host
 add_host=(
-"admin.testmiaoche.com:$own_ip"
-"api.testmiaoche.com:$own_ip"
+"news.test.com:$own_ip"
 )
 
 function get_image() {
@@ -65,7 +65,7 @@ function service_start_php_in_box () {
 
     docker_exec="docker run --net=host --name $container_name -d "
    
-    if [ $dns != "" ]
+    if [ -n "$dns" ]
     then
         docker_exec="$docker_exec --dns=$dns "
     fi
@@ -86,14 +86,14 @@ function service_start_nginx_in_local() {
     #start nginx
     nginx_exec="docker run --name nginx_server -d -p 80:80 "
     
-    if [ $dns != "" ]
+    if [ -n "$dns" ]
     then
         nginx_exec="$nginx_exec --dns=$dns "
     fi
     
     nginx_exec="$nginx_exec -v $nginx_conf:/etc/nginx/nginx.conf "
 
-    if [ $nginx_confd != "" ]
+    if [ -n "$nginx_confd" ]
     then
         nginx_exec="$nginx_exec -v $nginx_confd:/etc/nginx/conf.d "
     fi 
