@@ -152,16 +152,9 @@ function check_virtualbox() {
     if [ -z "$(docker-machine ls | grep $docker_machine_name)" ]
     then
         docker-machine create -d virtualbox $docker_machine_name
-        echo ""
-        echo "--------------------------------------------------"
-        echo "| Need run:"
-        echo "| 1. docker-machine ssh $docker_machine_name"
-        echo '| 2. sudo sed -i "s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=http://7a1ec455.m.daocloud.io |g" /var/lib/boot2docker/profile'
-        echo "| 3. exit"
-        echo "| 4. docker-machine restart $docker_machine_name"
-        echo "|"
-        echo "--------------------------------------------------"
-        exit 0
+        cat /etc/localtime | bzip2 | docker-machine ssh $docker_machine_name 'sudo sh -c "bunzip2 | cat > /etc/localtime"'
+        docker-machine ssh $docker_machine_name 'sudo ntpclient -s -h pool.ntp.org'
+        docker-machine ssh $docker_machine_name "sudo sed -i \"s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=http://7a1ec455.m.daocloud.io |g\" /var/lib/boot2docker/profile"
     fi
 
     #check os status
@@ -174,6 +167,9 @@ function check_virtualbox() {
     if [[ $osWant == "run" && $vmstatus == "Stop" ]]
     then
         docker-machine start $docker_machine_name
+        cat /etc/localtime | bzip2 | docker-machine ssh $docker_machine_name 'sudo sh -c "bunzip2 | cat > /etc/localtime"'
+        docker-machine ssh $docker_machine_name 'sudo ntpclient -s -h pool.ntp.org'
+        docker-machine ssh $docker_machine_name "sudo sed -i \"s|EXTRA_ARGS='|EXTRA_ARGS='--registry-mirror=http://7a1ec455.m.daocloud.io |g\" /var/lib/boot2docker/profile"
     fi
 
     if [[ $osWant == "s" && $vmstatus == "Running" ]]
