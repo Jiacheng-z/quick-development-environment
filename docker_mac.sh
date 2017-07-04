@@ -23,7 +23,9 @@ docker_machine_name="phpbox"
 
 #向docker启动时添加的host
 add_host=(
-"news.test.com:$own_ip"
+"tgang_jiacheng.sina.com.cn:$own_ip"
+"tgang_jiacheng.sina.cn:$own_ip"
+"cms_jiacheng.sina.com.cn:$own_ip"
 )
 
 function get_image() {
@@ -209,11 +211,11 @@ php5)
         app)
             shift
             shift
-            docker run -it --rm -v $php_app:/app -w /app $choise_image $*
+            docker run -it --rm --net=host -v $php_app:/app -w /app $choise_image $*
             ;;
         *)
             shift 
-            docker run -it --rm -v $PWD:/app -w /app $choise_image $*
+            docker run -it --rm --net=host -v $PWD:/app -w /app $choise_image $*
             ;;
     esac
     unset_docker_export
@@ -227,16 +229,35 @@ php7)
         app)
             shift
             shift
-            docker run -it --rm -v $php_app:/app -w /app $choise_image $*
+            docker run -it --rm --net=host -v $php_app:/app -w /app $choise_image $*
             ;;
         *)
             shift 
-            docker run -it --rm -v $PWD:/app -w /app $choise_image $*
+            docker run -it --rm --net=host -v $PWD:/app -w /app $choise_image $*
             ;;
     esac
     unset_docker_export
     ;;
-
+cli)
+    check_virtualbox run
+    eval $(docker-machine env $docker_machine_name)
+    
+    case $2 in 
+        php5)
+            shift
+            shift
+            get_image php5
+            docker run -it --rm --net=host -v $PWD:/app -w /app $choise_image /bin/bash
+            ;;
+        php7)
+            shift
+            shift
+            get_image php7
+            docker run -it --rm --net=host -v $PWD:/app -w /app $choise_image /bin/bash
+            ;;
+    esac
+    unset_docker_export
+    ;;
 *)
     echo "./docker_run.sh [move] [version]"
     echo ""
