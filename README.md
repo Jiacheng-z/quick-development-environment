@@ -1,62 +1,25 @@
-# PHP的个人开发环境Dockerfile
+# Personal development environment.
 
-提供两个版本`php5.6`和`php7.1`
+## Feature
+1. Nginx, Redis, Memcache, docker environment.
+2. Docker compose support.
+3. Alfred workflow support.
 
-两个环境的扩展相同，包含下列扩展：
+## Usage
+*Note: Remeber to change config file in config_example directory, or change docker-compose.yml.*
 
-- iconv
-- mcrypt
-- gd
-- opcache
-- xml 
-- pdo 
-- pdo_mysql
-- sockets
-- memcache
-- memcached 
-- redis 
-- solr
-- yaf
-- yar
-- yac
-- xhprof
-- xdebug
+### 1. Native docker compose.
+### 2. Use Alfred workflow.
+1. Import manager_base.alfredworkflow.
+2. Change docker-compose.yml path in workflow action node.
+    - Run Script node.
+    - Terminal Command node.
 
-做好的镜像在[docker hub](https://hub.docker.com/r/jiachengajtlkd/php/tags/)提供下载
+Command:
+- `dc up -d`: Start environment in background.
+- `dc up`: Start environment with terminal command. Or show background running log.
+- `dc down`: Stop and Remove environment.
 
-## 使用样例
-
-**1) 包含redis和memcache的样例**
-
-```
-docker run --name b-redis -d redis:3.0 \
-&& docker run --name b-memcache  -d memcached:1.4 \
-&& docker run --name phpfpm -d \
--v /Users/zhangjiacheng/WorkDir/Webserver/Project:/app \
--v /file_path/php.ini:/usr/local/etc/php/php.ini \
---link b-redis:redis \
---link b-memcache:memcache \
-[docker image]
-```
-
-**2) 单独启动**
-
-```
-docker run --name phpfpm -d \
--v /Users/zhangjiacheng/WorkDir/Webserver/Project:/app \
--v /file_path/php.ini:/usr/local/etc/php/php.ini \
-[docker image]
-```
-
-**3) 配合nginx提供服务**
-
-```
-docker run --name nginx_server -d -p 80:80 \
--v /file_path/nginx.conf:/etc/nginx/nginx.conf \
-[-v /file_path/conf.d:/etc/nginx/conf.d \]
---link phpfpm:php \
---volumes-from phpfpm \
-nginx
-```
-
-
+## Depend on
+- docker
+- docker-compose (suggest: support version 3)
