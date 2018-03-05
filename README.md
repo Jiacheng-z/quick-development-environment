@@ -6,7 +6,7 @@
 3. Alfred workflow support.
 
 ## Usage
-*Note: Remeber to change config file in config_example directory, or change docker-compose.yml.*
+**Note: Remeber to change config file in config_example directory, or change docker-compose.yml.**
 
 ### 1. Native docker compose.
 ### 2. Use Alfred workflow.
