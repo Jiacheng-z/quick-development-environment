@@ -6,9 +6,8 @@ services:
         ports:
             - 80:80
         volumes:
-            - /Users:/Users
-            - /Users/jiacheng3/Documents/Website/Configuration/Nginx/nginx.conf:/etc/nginx/nginx.conf
-            - /Users/jiacheng3/Documents/Website/Configuration/Nginx/conf.d:/etc/nginx/conf.d
+            - ./config_example/nginx.conf:/etc/nginx/nginx.conf
+            - ./config_example/conf.d:/etc/nginx/conf.d
 
     redis:
         image: redis:latest
