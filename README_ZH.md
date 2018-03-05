@@ -14,7 +14,7 @@
     - Run Script node.
     - Terminal Command node.
 
-### 命令:
+### Workflow命令:
 - `dc up -d`: 后台启动环境
 - `dc up`: 打开命令行, 并启动环境或查看之前启动的环境的nginx, redis, memcache 回显日志.
 - `dc down`: 停止环境.
