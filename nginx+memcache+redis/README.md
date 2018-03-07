@@ -1,3 +1,4 @@
+[中文版](https://github.com/Jiacheng-z/quick-development-environment/blob/master/nginx%2Bmemcache%2Bredis/README_ZH.md)
 # Personal development environment.
 
 ## Feature
