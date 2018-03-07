@@ -2,7 +2,7 @@
 
 Docker image: [Docker hub](https://hub.docker.com/r/jiachengajtlkd/cpp-env/)
 
-### Feature
+### Features
 - [brpc](https://github.com/brpc/brpc)
 - [gperftools-2.6.3](https://github.com/gperftools/gperftools)
 - [rdkafka-0.11.3](https://github.com/edenhill/librdkafka)

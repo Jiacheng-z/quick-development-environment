@@ -1,7 +1,7 @@
 [中文版](https://github.com/Jiacheng-z/quick-development-environment/blob/master/nginx%2Bmemcache%2Bredis/README_ZH.md)
 # Personal development environment.
 
-## Feature
+## Features
 1. Nginx, Redis, Memcache, docker environment.
 2. Docker compose support.
 3. Alfred workflow support.
