@@ -18,3 +18,7 @@ services:
         image: memcached:latest
         ports:
             - 11211:11211
+    mongo:
+        image: mongo:latest
+        ports:
+            - 27017:27017
